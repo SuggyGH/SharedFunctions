@@ -1,23 +1,24 @@
-import java.io.File;
 import groovy.io.FileType;
+import java.io.File;
+import java.text.SimpleDateFormat
 
 @NonCPS
 def call(Map config=[:]){
-    def dir = new File(pwd());
+	def dir = new File(pwd());
     
-    echo "******************" + dir.path + "******************";
-    
-    var writer = new File(dir.path + '/releasenotes.txt').withWriter('utf-8');
-    
-    var files = eachFileRecurse(FileType.ANY);
-    
-    for (file in files){
-    	if (file.isDirectory()){
-	    writer.writeLine(file.name);            
+	new File(dir.path + '/releasenotes.txt').withWriter('utf-8') 
+	{ 
+		writer -> 
+	    dir.eachFileRecurse(FileType.ANY){ file ->
+		if (file.isDirectory()){
+		    writer.writeLine(file.name);            
+		}
+		else
+		{
+		    writer.writeLine('\t' + file.name + '\t' + file.length());
+		}
+		} 
 	}
-	else
-	{
-	    writer.writeLine('\t' + file.name + '\t' + file.length());
-	}
-    }
+    
+
 }
