@@ -33,7 +33,7 @@ def call(Map config=[:]){
                     for (entry in entries) {
                              writer.writeLine("${entry.commitId} by ${entry.author} on ${new Date(entry.timestamp)}: ${entry.msg}");
                             for (file in entry.affectedFiles) {
-                                     writer.writeLine(" ${file.editType.name} ${file.path}";)
+                                     writer.writeLine(" ${file.editType.name} ${file.path}");
                             }
                     }
             }
